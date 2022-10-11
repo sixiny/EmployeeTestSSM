@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysx.mapper.EmployeeMapper">
+<!--    getEmps-->
+    <select id="getEmps" resultType="employee">
+        select * from t_employee
+    </select>
+
+<!--    Employee getEmpById(Integer id);-->
+    <select id="getEmpById" resultType="Employee">
+        select * from t_employee where emp_id=#{id}
+    </select>
+
+<!--    void delEmp(Integer id);-->
+    <delete id="delEmp">
+        delete from t_employee where emp_id=#{id}
+    </delete>
+
+<!--    void updateEmp(Employee employee);-->
+    <update id="updateEmp" parameterType="Employee">
+        update t_employee set emp_name=#{empName}, age=#{age}, sex=#{sex}, email=#{email} where emp_id=#{empId}
+    </update>
+
+<!--    void addEmp(Employee employee);-->
+    <insert id="addEmp" parameterType="Employee" keyProperty="empId" useGeneratedKeys="true">
+        insert into t_employee values(null, #{empName}, #{age}, #{sex}, #{email})
+    </insert>
+
+<!--    void delEmps(Integer[] ids);-->
+    <delete id="delEmps">
+        delete from t_employee where emp_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
+

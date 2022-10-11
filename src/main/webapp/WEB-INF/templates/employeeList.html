@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工列表</title>
+    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+    <script th:src="@{/static/js/vue.js}"></script>
+    <script th:src="@{/static/js/axios.min.js}"></script>
+</head>
+<body>
+<div id="app">
+    <table>
+        <tr>
+            <th colspan="7">员工列表         <input type="button" value="删除已选" @click="deleteEmps()"></th>
+        </tr>
+        <tr>
+            <th>全选<input type="checkbox" id="all" value="" @click="checkAll()"> </th>
+            <th>流水号</th>
+            <th>员工姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>邮箱</th>
+            <th>操作<a th:href="@{/to/add}">(添加用户)</a></th>
+        </tr>
+        <tr th:each="employee,status : ${page.list}">
+            <td><input type="checkbox" name="id" th:value="${employee.empId}"></td>
+            <td th:text="${status.count}"></td>
+            <td th:text="${employee.empName}"></td>
+            <td th:text="${employee.age}"></td>
+            <td th:text="${employee.sex}"></td>
+            <td th:text="${employee.email}"></td>
+            <td>
+                <a th:href="@{'/employee/'+${employee.empId}}" @click="deleteEmp()">删除</a>
+                <a th:href="@{'/employee/'+${employee.empId}}">修改</a>
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center">
+        <a th:if="${!page.isFirstPage}" th:href="@{/employee/page/1}" >首页</a>
+        <a th:if="${page.hasPreviousPage}" th:href="@{'/employee/page/'+${page.prePage}}" >上一页</a>
+        <span th:each = "num : ${page.navigatepageNums}">
+            <a th:href="@{'/employee/page/'+${num}}" th:text="${num}" style="width:50px"></a>
+        </span>
+        <a th:if="${page.hasNextPage}" th:href="@{'/employee/page/'+${page.nextPage}}" >下一页</a>
+        <a th:if="${!page.isLastPage}" th:href="@{'/employee/page/'+${page.pages}}" >尾页</a>
+    </div>
+
+    <form method="post">
+        <input type="hidden" name="_method" value="delete">
+    </form>
+</div>
+
+
+<script th:src="@{/static/js/employee.js}"></script>
+</body>
+</html>
