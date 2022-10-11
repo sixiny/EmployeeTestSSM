@@ -18,13 +18,6 @@ import java.util.List;
  * @Author: ysx
  * @Date: 2022/10/06/11:59
  * @Description:
- *  * 查询所有的员工信息-->/employee-->get
- *  * 查询员工的分页信息-->/employee/page/1-->get
- *  * 根据id查询员工信息-->/employee/1-->get
- *  * 跳转到添加页面-->/to/add-->get
- *  * 添加员工信息-->/employee-->post
- *  * 修改员工信息-->/employee-->put
- *  * 删除员工信息-->/employee/1-->delete
  */
 @Controller
 public class EmployeeController {
